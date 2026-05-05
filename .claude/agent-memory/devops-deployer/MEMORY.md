@@ -1,0 +1,1 @@
+- [myarchive_tgbot Infrastructure Setup](project_infrastructure.md) — MySQL docker-compose, init schema, env template for Telegram bot archive
