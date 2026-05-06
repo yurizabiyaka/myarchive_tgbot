@@ -21,6 +21,7 @@ Your personal saver for links and forwarded messages. Save your finds, browse th
 /help – Show this help message
 /list – Browse all your saved items (paginated)
 /find <keywords> – Search your items by keyword
+/schedule – Set up periodic reminders with random items from your archive
 /forgetme – Delete your account and all saved items
 """
 

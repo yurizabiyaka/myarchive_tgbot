@@ -21,3 +21,18 @@ CREATE TABLE IF NOT EXISTS items (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FULLTEXT INDEX ft_items (content, text)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- schedules table: stores reminder schedules for users
+CREATE TABLE IF NOT EXISTS schedules (
+    user_id          BIGINT PRIMARY KEY,
+    interval_seconds INT UNSIGNED NOT NULL,
+    items_count      INT UNSIGNED NOT NULL DEFAULT 5,
+    next_reminder_at DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- schema_migrations table: tracks applied DB migrations (used by migrate.py)
+CREATE TABLE IF NOT EXISTS schema_migrations (
+    id         VARCHAR(64) PRIMARY KEY,
+    applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

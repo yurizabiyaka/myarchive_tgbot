@@ -20,6 +20,7 @@ async def init_pool(cfg: Config) -> None:
         db=cfg.db_name,
         minsize=cfg.db_pool_min,
         maxsize=cfg.db_pool_max,
+        init_command='SET time_zone = "+00:00"',
     )
 
 

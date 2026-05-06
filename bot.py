@@ -19,7 +19,9 @@ from handlers.browse import (
 from handlers.forgetme import cancel_forgetme, confirm_forgetme, forgetme
 from handlers.help import help_command
 from handlers.save import SaveFilter, save_forwarded_or_url
+from handlers.schedule import schedule_command
 from handlers.start import start
+from reminder import send_reminders
 
 # Configure logging
 logging.basicConfig(
@@ -35,6 +37,9 @@ async def post_init(application: Application) -> None:
     await init_pool(config)
     logger.info("Database pool initialized.")
 
+    application.job_queue.run_repeating(send_reminders, interval=60, first=10)
+    logger.info("Reminder job scheduled.")
+
 
 def main() -> None:
     """Start the Telegram bot."""
@@ -46,6 +51,7 @@ def main() -> None:
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("list", list_command))
     application.add_handler(CommandHandler("find", find_command))
+    application.add_handler(CommandHandler("schedule", schedule_command))
     application.add_handler(CommandHandler("forgetme", forgetme))
 
     # Register message handler for forwarded messages and URLs
